@@ -29,7 +29,7 @@ module.exports = {
 
       // Generate QR code that links to user information
       //   const qrCodeData = `https://your-website-url.com/validate-invitation/${userId}`;
-      const qrCodeData = `https://invitation-wakeup.netlify.app/user/${userId}`;
+      const qrCodeData = `https://invitation-wakeup.netlify.app/user?id=${userId}`;
       const qrCode = await qr.toDataURL(qrCodeData); // Convert to base64
 
       // Send the QR code via email
