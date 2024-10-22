@@ -4,9 +4,7 @@ const qr = require("qrcode");
 
 module.exports = {
   createUser: async (req, res) => {
-    const { lastName, firstName, email, telephone } = req.body;
-    console.log(req.body);
-
+    const { lastName, firstName, email, telephone,activite,profession } = req.body;
     try {
       // Check if user already exists
       const existingUser = await User.findOne({ email });
@@ -22,6 +20,8 @@ module.exports = {
         firstName,
         email,
         telephone,
+        activite,
+        profession
       });
       const savedUser = await newUser.save();
 

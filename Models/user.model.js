@@ -19,6 +19,12 @@ telephone : {
     type : Number,
     required : true
 }, 
+profession : {
+    type : String,
+},
+activite : {
+    type : String,
+},
 accepted:{
     type : Boolean,
     default : false
