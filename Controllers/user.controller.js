@@ -5,6 +5,8 @@ const qr = require("qrcode");
 module.exports = {
   createUser: async (req, res) => {
     const { lastName, firstName, email, telephone } = req.body;
+    console.log(req.body);
+
     try {
       // Check if user already exists
       const existingUser = await User.findOne({ email });
@@ -47,6 +49,7 @@ module.exports = {
   },
   validateInvitation: async (req, res) => {
     const { userId } = req.params;
+    console.log(userId);
 
     try {
       // Find the user by ID
@@ -66,6 +69,39 @@ module.exports = {
       return res
         .status(500)
         .json({ message: "Error retrieving user information" });
+    }
+  },
+  acceptInvitation: async (req, res) => {
+    const { userId } = req.params;
+    console.log("here",userId);
+
+    try {
+      // Find the user by ID
+      const user = await User.findById(userId);
+      
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Check if the user has already accepted
+      if (user.accepted) {
+        return res.status(400).json({ message: "User has already accepted the invitation" });
+      }
+
+      // Update user's accepted status
+      user.accepted = true;
+      await user.save();
+
+      // Return success response
+      return res.status(200).json({
+        message: "Invitation accepted successfully",
+        user,
+      });
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({ message: "Error updating user acceptance status" });
     }
   },
 };
