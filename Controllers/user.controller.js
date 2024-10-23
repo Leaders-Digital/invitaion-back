@@ -4,7 +4,15 @@ const qr = require("qrcode");
 
 module.exports = {
   createUser: async (req, res) => {
-    const { lastName, firstName, email, telephone,activite,profession } = req.body;
+    const {
+      lastName,
+      firstName,
+      email,
+      telephone,
+      activite,
+      profession,
+      society,
+    } = req.body;
     try {
       // Check if user already exists
       const existingUser = await User.findOne({ email });
@@ -21,7 +29,8 @@ module.exports = {
         email,
         telephone,
         activite,
-        profession
+        profession,
+        society,
       });
       const savedUser = await newUser.save();
 
@@ -29,7 +38,7 @@ module.exports = {
 
       // Generate QR code that links to user information
       //   const qrCodeData = `https://your-website-url.com/validate-invitation/${userId}`;
-      const qrCodeData = `https://invitation-wakeup.netlify.app/user?id=${userId}`;
+      const qrCodeData = `https://wakupinvitation.netlify.app/user/${userId}`;
       const qrCode = await qr.toDataURL(qrCodeData); // Convert to base64
 
       // Send the QR code via email
@@ -73,19 +82,21 @@ module.exports = {
   },
   acceptInvitation: async (req, res) => {
     const { userId } = req.params;
-    console.log("here",userId);
+    console.log("here", userId);
 
     try {
       // Find the user by ID
       const user = await User.findById(userId);
-      
+
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
 
       // Check if the user has already accepted
       if (user.accepted) {
-        return res.status(400).json({ message: "User has already accepted the invitation" });
+        return res
+          .status(400)
+          .json({ message: "User has already accepted the invitation" });
       }
 
       // Update user's accepted status

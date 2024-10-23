@@ -40,8 +40,8 @@ const sendOrderEmail = (recipientEmail, qrCode) => {
   
         <p style="font-size: 16px; color: #555; text-align: center; margin-top: 20px;">
           <strong>Événement :</strong> événement Wake Up <br/>
-          <strong>Date :</strong> 24 octobre 2024 <br/>
-          <strong>Lieu :</strong> Hotel 4 Saisons
+          <strong>Date :</strong> Jeudi 24 octobre 2024 à 19h30.<br/>
+          <strong>Lieu :</strong> Four Seasons Hotels and Resorts , Gammarth
         </p>
   
         <div style="border-top: 1px solid #eaeaea; margin-top: 20px; padding-top: 20px; text-align: center;">
