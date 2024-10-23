@@ -32,6 +32,10 @@ const userchema = new mongoose.Schema({
     type: String,
     default: "none",
   },
+  valide: {
+    type: Boolean,
+    default:false,
+  },
 });
 const User = mongoose.model("User", userchema);
 module.exports = User;

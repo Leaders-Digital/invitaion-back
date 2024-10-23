@@ -38,11 +38,6 @@ module.exports = {
 
       // Generate QR code that links to user information
       //   const qrCodeData = `https://your-website-url.com/validate-invitation/${userId}`;
-      const qrCodeData = `https://wakupinvitation.netlify.app/user/${userId}`;
-      const qrCode = await qr.toDataURL(qrCodeData); // Convert to base64
-
-      // Send the QR code via email
-      sendOrderEmail(email, qrCode);
 
       // Return success response
       return res.status(201).json({
@@ -56,10 +51,9 @@ module.exports = {
         .json({ message: "Error creating user or sending email" });
     }
   },
+
   validateInvitation: async (req, res) => {
     const { userId } = req.params;
-    console.log(userId);
-
     try {
       // Find the user by ID
       const user = await User.findById(userId);
@@ -80,6 +74,7 @@ module.exports = {
         .json({ message: "Error retrieving user information" });
     }
   },
+
   acceptInvitation: async (req, res) => {
     const { userId } = req.params;
     console.log("here", userId);
@@ -113,6 +108,48 @@ module.exports = {
       return res
         .status(500)
         .json({ message: "Error updating user acceptance status" });
+    }
+  },
+
+  getAllInvitations: async (req, res) => {
+    try {
+      // Find all users
+      const users = await User.find();
+
+      // Return the list of users
+      return res.status(200).json({
+        message: "List of all users",
+        users,
+      });
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({ message: "Error retrieving list of users" });
+    }
+  },
+
+  userSendEmail: async (req, res) => {
+    const { id, email } = req.body;
+    try {
+      // Send the QR code via email
+
+      const qrCodeData = `https://wakupinvitation.netlify.app/user/${id}`;
+      const qrCode = await qr.toDataURL(qrCodeData); // Convert to base64
+
+      // Send the QR code via email
+      sendOrderEmail(email, qrCode);
+      //update user by id set valide to true
+      const user = await User.findById(id);
+      user.valide = true;
+      await user.save();
+      // Return success response
+      return res.status(200).json({
+        message: "QR code sent via email",
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Error sending email" });
     }
   },
 };
