@@ -46,7 +46,7 @@ const sendOrderEmail = (recipientEmail, qrCode) => {
   
         <div style="border-top: 1px solid #eaeaea; margin-top: 20px; padding-top: 20px; text-align: center;">
           <p style="font-size: 14px; color: #999;">
-            Si vous avez des questions, n'hésitez pas à nous contacter à <a href="mailto:contact@example.com" style="color: #4CAF50; text-decoration: none;">contact@example.com</a>.
+            Si vous avez des questions, n'hésitez pas à nous contacter à <a href="mailto:contact@leaders-makeup.com" style="color: #4CAF50; text-decoration: none;">contact@leaders-makeup.com</a>.
           </p>
         </div>
       </div>
