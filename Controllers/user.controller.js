@@ -134,7 +134,7 @@ module.exports = {
     try {
       // Send the QR code via email
 
-      const qrCodeData = `https://wakupinvitation.netlify.app/user/${id}`;
+      const qrCodeData = `https://wakeupinvitation.com/user/${id}`;
       const qrCode = await qr.toDataURL(qrCodeData); // Convert to base64
 
       // Send the QR code via email
