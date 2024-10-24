@@ -114,7 +114,7 @@ module.exports = {
   getAllInvitations: async (req, res) => {
     try {
       // Find all users
-      const users = await User.find();
+      const users = await User.find().sort({ createdAt: -1 });
 
       // Return the list of users
       return res.status(200).json({
